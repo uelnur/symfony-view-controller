@@ -1,0 +1,28 @@
+{
+    "name": "uelnur/symfony-view-controller",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yelnur Urazymbetov",
+            "email": "311293e@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Uelnur\\SymfonyViewController\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Uelnur\\SymfonyViewController\\Tests": "tests/"
+        }
+    },
+    "require": {
+        "symfony/http-kernel": "^5",
+        "symfony/dependency-injection": "^5",
+        "uelnur/symfony-criteria-repository": "0.1",
+        "uelnur/symfony-entity-action": "0.1",
+        "symfony/framework-bundle": "^5"
+    }
+}
