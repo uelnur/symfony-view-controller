@@ -2,7 +2,7 @@
 
 namespace Uelnur\SymfonyViewController;
 
-class Route
+class ViewRoute
 {
     public string $route;
     public array $params = [];

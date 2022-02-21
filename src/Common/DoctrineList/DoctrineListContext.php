@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Integration\View\ViewCommon\DoctrineList;
+namespace Uelnur\SymfonyViewController\Common\DoctrineList;
 
 use Uelnur\SymfonyViewController\AbstractTwigViewContext;
-use App\Integration\View\ViewMiddleware\Pagination\PaginationViewMiddlewareTrait;
-use App\Integration\View\ViewMiddleware\Search\SearchViewMiddlewareTrait;
+use Uelnur\SymfonyViewController\Middleware\Pagination\PaginationViewMiddlewareTrait;
+use Uelnur\SymfonyViewController\Middleware\Search\SearchViewMiddlewareTrait;
 
 class DoctrineListContext extends AbstractTwigViewContext {
     use SearchViewMiddlewareTrait;

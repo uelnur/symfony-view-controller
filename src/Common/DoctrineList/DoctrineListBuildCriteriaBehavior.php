@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Integration\View\ViewCommon\DoctrineList;
+namespace Uelnur\SymfonyViewController\Common\DoctrineList;
 
-use Uelnur\SymfonyViewController\ViewContext;
+use Uelnur\SymfonyViewController\BaseViewContext;
 use Uelnur\SymfonyCriteriaRepository\AbstractCriteria;
 
 interface DoctrineListBuildCriteriaBehavior {
-    public function doctrineListBuildCriteria(AbstractCriteria $criteria, ViewContext $viewContext): void;
+    public function doctrineListBuildCriteria(AbstractCriteria $criteria, BaseViewContext $viewContext): void;
 }

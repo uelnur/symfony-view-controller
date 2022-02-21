@@ -5,19 +5,19 @@ namespace Uelnur\SymfonyViewController;
 use Throwable;
 
 interface ViewInterface {
-    public function createViewContext(): ViewContext;
+    public function createViewContext(): BaseViewContext;
 
     // Before Controller action call
-    public function init(ViewContext $viewContext): void;
+    public function init(BaseViewContext $viewContext): void;
 
     // After Controller action call, after Middleware afterAction call
-    public function handle(ViewContext $viewContext): void;
-    public function postHandle(ViewContext $viewContext): void;
+    public function handle(BaseViewContext $viewContext): void;
+    public function postHandle(BaseViewContext $viewContext): void;
 
-    public function finish(ViewContext $viewContext): void;
-    public function onException(Throwable $exception, ViewContext $viewContext): void;
+    public function finish(BaseViewContext $viewContext): void;
+    public function onException(Throwable $exception, BaseViewContext $viewContext): void;
 
-    public function getViewRoute(ViewContext $viewContext): ViewRouteInterface;
+    public function getViewRoute(BaseViewContext $viewContext): ViewRouteInterface;
 
     public function getViewMiddlewares(): array;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Integration\View\ViewMiddleware\Pagination;
+namespace Uelnur\SymfonyViewController\Middleware\Pagination;
 
 use Countable, Iterator, ArrayAccess;
 use Traversable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Integration\View\ViewMiddleware\Search;
+namespace Uelnur\SymfonyViewController\Middleware\Search;
 
 trait SearchViewMiddlewareTrait {
     public null|string $search = null;

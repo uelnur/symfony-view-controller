@@ -3,6 +3,6 @@
 namespace Uelnur\SymfonyViewController;
 
 interface ViewFirewallInterface {
-    public function viewIsGranted(ViewContext $viewContext): ?bool;
-    public function viewIfNotGranted(ViewContext $viewContext): void;
+    public function viewIsGranted(BaseViewContext $viewContext): ?bool;
+    public function viewIfNotGranted(BaseViewContext $viewContext): void;
 }

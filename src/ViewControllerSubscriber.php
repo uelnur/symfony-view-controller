@@ -16,7 +16,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
     private array $viewMiddlewaresRegistry = [];
 
     public function __construct(
-        #[TaggedIterator(tag: 'app.view.middleware')]
+        #[TaggedIterator(tag: 'uelnur.view.middleware')]
         iterable $middlewares,
         private ViewRouteManager $viewRouteManager,
     ) {
@@ -73,7 +73,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
         $request = $event->getRequest();
         $viewContext = $request->attributes->get('viewContext');
 
-        if ( $viewContext instanceof ViewContext ) {
+        if ( $viewContext instanceof BaseViewContext ) {
             $viewContext->viewResult = $event->getControllerResult();
             $view = $viewContext->view;
 
@@ -126,7 +126,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
         $request = $event->getRequest();
         $viewContext = $request->attributes->get('viewContext');
 
-        if ( $viewContext instanceof ViewContext ) {
+        if ( $viewContext instanceof BaseViewContext ) {
             $viewContext->response = $event->getResponse();
 
             $view = $viewContext->view;
@@ -143,7 +143,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
         $request = $event->getRequest();
         $viewContext = $request->attributes->get('viewContext');
 
-        if ( $viewContext instanceof ViewContext ) {
+        if ( $viewContext instanceof BaseViewContext ) {
             $view = $viewContext->view;
             $exception = $event->getThrowable();
             $view->onException($exception, $viewContext);
@@ -159,7 +159,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
         ];
     }
 
-    private function prepareMiddlewares(ViewInterface $view, ViewContext $viewContext) {
+    private function prepareMiddlewares(ViewInterface $view, BaseViewContext $viewContext) {
         $middlewareNames = $view->getViewMiddlewares();
 
         foreach ($middlewareNames as $middlewareName) {
@@ -186,7 +186,7 @@ class ViewControllerSubscriber implements EventSubscriberInterface {
         return array_unique($traits);
     }
 
-    private function handleViewMiddlewares(ViewContext $viewContext, string $method): void {
+    private function handleViewMiddlewares(BaseViewContext $viewContext, string $method): void {
         foreach ($viewContext->viewMiddlewares as $middleware) {
             assert( $middleware instanceof ViewMiddlewareInterface );
 

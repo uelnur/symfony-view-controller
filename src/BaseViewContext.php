@@ -5,7 +5,7 @@ namespace Uelnur\SymfonyViewController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ViewContext {
+class BaseViewContext {
     public ViewInterface $view;
     public mixed $viewResult = null;
     public array $viewMiddlewares = [];

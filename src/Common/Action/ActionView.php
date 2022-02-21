@@ -3,7 +3,7 @@
 namespace Uelnur\SymfonyViewController\Common\Action;
 
 use Uelnur\SymfonyViewController\AbstractTwigView;
-use Uelnur\SymfonyViewController\ViewContext;
+use Uelnur\SymfonyViewController\BaseViewContext;
 use Exception;
 use Uelnur\SymfonyEntityAction\ActionStatusInterface;
 
@@ -15,7 +15,7 @@ abstract class ActionView extends AbstractTwigView {
     /**
      * @throws \Exception
      */
-    public function handle(ViewContext $viewContext): void {
+    public function handle(BaseViewContext $viewContext): void {
         assert($viewContext instanceof ActionViewContext);
         $action = $viewContext->action;
 

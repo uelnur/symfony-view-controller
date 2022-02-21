@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Integration\View\ViewMiddleware\Pagination;
+namespace Uelnur\SymfonyViewController\Middleware\Pagination;
 
-use Uelnur\SymfonyViewController\ViewContext;
+use Uelnur\SymfonyViewController\BaseViewContext;
+use Uelnur\SymfonyViewController\Common\DoctrineList\DoctrineListBuildCriteriaBehavior;
+use Uelnur\SymfonyViewController\Common\DoctrineList\DoctrineListContext;
 use Uelnur\SymfonyViewController\ViewMiddlewareInterface;
-use App\Integration\View\ViewCommon\DoctrineList\DoctrineListBuildCriteriaBehavior;
-use App\Integration\View\ViewCommon\DoctrineList\DoctrineListContext;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Uelnur\SymfonyCriteriaRepository\AbstractCriteria;
 
@@ -27,11 +27,11 @@ class PaginationViewMiddleware implements ViewMiddlewareInterface, DoctrineListB
         return null;
     }
 
-    public function supports(ViewContext $viewContext): bool {
+    public function supports(BaseViewContext $viewContext): bool {
         return true;
     }
 
-    public function init(ViewContext $viewContext): void {
+    public function init(BaseViewContext $viewContext): void {
         /** @var $viewContext PaginationViewMiddlewareTrait */
 
         if ( !$viewContext->paginationEnabled ) {
@@ -73,11 +73,11 @@ class PaginationViewMiddleware implements ViewMiddlewareInterface, DoctrineListB
         }
     }
 
-    public function afterAction(ViewContext $viewContext): void {
+    public function afterAction(BaseViewContext $viewContext): void {
 
     }
 
-    public function postHandle(ViewContext $viewContext): void {
+    public function postHandle(BaseViewContext $viewContext): void {
         /** @var $viewContext PaginationViewMiddlewareTrait */
 
         if ( !$viewContext->paginationEnabled ) {
@@ -110,11 +110,11 @@ class PaginationViewMiddleware implements ViewMiddlewareInterface, DoctrineListB
         )->render();
     }
 
-    public function finish(ViewContext $viewContext): void {
+    public function finish(BaseViewContext $viewContext): void {
 
     }
 
-    public function doctrineListBuildCriteria(AbstractCriteria $criteria, ViewContext $viewContext): void {
+    public function doctrineListBuildCriteria(AbstractCriteria $criteria, BaseViewContext $viewContext): void {
         /** @var $viewContext PaginationViewMiddlewareTrait */
 
         if ( !$viewContext->paginationEnabled ) {

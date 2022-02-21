@@ -6,20 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Throwable;
 
 abstract class AbstractView extends AbstractController implements ViewInterface, ViewFirewallInterface {
-    public function createViewContext(): ViewContext {
-        return new ViewContext();
+    public function createViewContext(): BaseViewContext {
+        return new BaseViewContext();
     }
 
-    public function init(ViewContext $viewContext): void {}
-    public function handle(ViewContext $viewContext): void {}
+    public function init(BaseViewContext $viewContext): void {}
+    public function handle(BaseViewContext $viewContext): void {}
 
-    public function postHandle(ViewContext $viewContext): void {}
+    public function postHandle(BaseViewContext $viewContext): void {}
 
-    public function finish(ViewContext $viewContext): void {}
+    public function finish(BaseViewContext $viewContext): void {}
 
-    public function onException(Throwable $exception, ViewContext $viewContext): void {}
+    public function onException(Throwable $exception, BaseViewContext $viewContext): void {}
 
-    public function viewIfNotGranted(ViewContext $viewContext): void {
+    public function viewIfNotGranted(BaseViewContext $viewContext): void {
         throw $this->createAccessDeniedException();
     }
 
@@ -30,7 +30,7 @@ abstract class AbstractView extends AbstractController implements ViewInterface,
         return [];
     }
 
-    public function runBehavior(string $behaviorInterface, ViewContext $viewContext, callable $callback): void {
+    public function runBehavior(string $behaviorInterface, BaseViewContext $viewContext, callable $callback): void {
         foreach ($viewContext->viewMiddlewares as $middleware) {
             if ( $middleware instanceof $behaviorInterface ) {
                 $callback($middleware);

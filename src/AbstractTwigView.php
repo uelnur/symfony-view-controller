@@ -4,11 +4,11 @@ namespace Uelnur\SymfonyViewController;
 
 abstract class AbstractTwigView extends AbstractView {
 
-    public function createViewContext(): ViewContext {
+    public function createViewContext(): BaseViewContext {
         return new AbstractTwigViewContext();
     }
 
-    public function postHandle(ViewContext $viewContext): void {
+    public function postHandle(BaseViewContext $viewContext): void {
         assert($viewContext instanceof AbstractTwigViewContext);
 
         if ( !$viewContext->response && $viewContext->template ) {

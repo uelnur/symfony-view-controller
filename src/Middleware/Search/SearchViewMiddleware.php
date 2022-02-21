@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Integration\View\ViewMiddleware\Search;
+namespace Uelnur\SymfonyViewController\Middleware\Search;
 
-use Uelnur\SymfonyViewController\ViewContext;
+use Uelnur\SymfonyViewController\BaseViewContext;
+use Uelnur\SymfonyViewController\Common\DoctrineList\DoctrineListBuildCriteriaBehavior;
 use Uelnur\SymfonyViewController\ViewMiddlewareInterface;
-use App\Integration\View\ViewCommon\DoctrineList\DoctrineListBuildCriteriaBehavior;
 use Uelnur\SymfonyCriteriaRepository\AbstractCriteria;
 
 class SearchViewMiddleware implements ViewMiddlewareInterface, DoctrineListBuildCriteriaBehavior {
@@ -16,12 +16,12 @@ class SearchViewMiddleware implements ViewMiddlewareInterface, DoctrineListBuild
         return null;
     }
 
-    public function supports(ViewContext $viewContext): bool {
+    public function supports(BaseViewContext $viewContext): bool {
         return true;
     }
 
-    public function init(ViewContext $viewContext): void {
-        /** @var $viewContext SearchViewMiddlewareTrait&ViewContext */
+    public function init(BaseViewContext $viewContext): void {
+        /** @var $viewContext SearchViewMiddlewareTrait&BaseViewContext */
 
         $request = $viewContext->request;
         $search = $request->query->get($viewContext->searchField, '');
@@ -39,19 +39,19 @@ class SearchViewMiddleware implements ViewMiddlewareInterface, DoctrineListBuild
         return trim($search);
     }
 
-    public function afterAction(ViewContext $viewContext): void {
+    public function afterAction(BaseViewContext $viewContext): void {
 
     }
 
-    public function postHandle(ViewContext $viewContext): void {
+    public function postHandle(BaseViewContext $viewContext): void {
 
     }
 
-    public function finish(ViewContext $viewContext): void {
+    public function finish(BaseViewContext $viewContext): void {
 
     }
 
-    public function doctrineListBuildCriteria(AbstractCriteria $criteria, ViewContext $viewContext): void {
+    public function doctrineListBuildCriteria(AbstractCriteria $criteria, BaseViewContext $viewContext): void {
         /** @var $viewContext SearchViewMiddlewareTrait */
 
         if ( !$viewContext->search ) {

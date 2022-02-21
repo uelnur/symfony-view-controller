@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Integration\View\ViewCommon\DoctrineList;
+namespace Uelnur\SymfonyViewController\Common\DoctrineList;
 
 use Uelnur\SymfonyViewController\AbstractTwigView;
-use Uelnur\SymfonyViewController\ViewContext;
-use App\Integration\View\ViewMiddleware\Pagination\PaginationViewMiddleware;
-use App\Integration\View\ViewMiddleware\Search\SearchViewMiddleware;
+use Uelnur\SymfonyViewController\BaseViewContext;
 use Uelnur\SymfonyCriteriaRepository\AbstractCriteria;
 use Uelnur\SymfonyCriteriaRepository\AbstractDoctrineRepository;
+use Uelnur\SymfonyViewController\Middleware\Pagination\PaginationViewMiddleware;
+use Uelnur\SymfonyViewController\Middleware\Search\SearchViewMiddleware;
 
 abstract class DoctrineListView extends AbstractTwigView {
     abstract public function getRepository(): AbstractDoctrineRepository;
 
-    public function createViewContext(): ViewContext {
+    public function createViewContext(): BaseViewContext {
         return new DoctrineListContext();
     }
 
-    public function handle(ViewContext $viewContext): void {
+    public function handle(BaseViewContext $viewContext): void {
         assert($viewContext instanceof DoctrineListContext);
         $repository = $this->getRepository();
 
@@ -38,7 +38,7 @@ abstract class DoctrineListView extends AbstractTwigView {
         $viewContext->entities = $entities;
     }
 
-    public function buildCriteriaBehavior(AbstractCriteria $criteria, ViewContext $viewContext): void {
+    public function buildCriteriaBehavior(AbstractCriteria $criteria, BaseViewContext $viewContext): void {
         $this->buildCriteria($criteria, $viewContext);
 
         $this->runBehavior(
@@ -50,7 +50,7 @@ abstract class DoctrineListView extends AbstractTwigView {
         );
     }
 
-    public function buildCriteria(AbstractCriteria $criteria, ViewContext $viewContext): void {}
+    public function buildCriteria(AbstractCriteria $criteria, BaseViewContext $viewContext): void {}
 
     public function getViewMiddlewares(): array {
         return array_merge(parent::getViewMiddlewares(), [
