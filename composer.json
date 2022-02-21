@@ -15,7 +15,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Uelnur\\SymfonyViewController\\Tests": "tests/"
+            "Uelnur\\SymfonyViewController\\Tests\\": "tests/"
         }
     },
     "require": {
