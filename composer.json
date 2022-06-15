@@ -18,12 +18,22 @@
             "Uelnur\\SymfonyViewController\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/uelnur/symfony-criteria-repository"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/uelnur/symfony-entity-action"
+        }
+    ],
     "require": {
-        "symfony/http-kernel": "^3|^4|^5",
-        "symfony/dependency-injection": "^3|^4|^5",
+        "symfony/http-kernel": "^6.1",
+        "symfony/dependency-injection": "^6.1",
         "uelnur/symfony-criteria-repository": "^0.1",
-        "uelnur/symfony-entity-action": "^0.1",
-        "symfony/framework-bundle": "^3|^4|^5",
-        "symfony/form": "^3|^4|^5"
+        "uelnur/symfony-entity-action": "dev-s6#^0.3",
+        "symfony/framework-bundle": "^6.1",
+        "symfony/form": "^6.1"
     }
 }
