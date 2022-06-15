@@ -31,7 +31,7 @@
     "require": {
         "symfony/http-kernel": "^6.1",
         "symfony/dependency-injection": "^6.1",
-        "uelnur/symfony-criteria-repository": "^0.1",
+        "uelnur/symfony-criteria-repository": "^0.2",
         "uelnur/symfony-entity-action": "dev-s6#^0.3",
         "symfony/framework-bundle": "^6.1",
         "symfony/form": "^6.1"
