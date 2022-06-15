@@ -2,6 +2,9 @@
 
 namespace Uelnur\SymfonyViewController\Common\Action;
 
+use Uelnur\SymfonyEntityAction\DispatchableActionDecorator;
+use Uelnur\SymfonyEntityAction\LoggableActionDecorator;
+use Uelnur\SymfonyEntityAction\ValidatableActionDecorator;
 use Uelnur\SymfonyViewController\AbstractTwigView;
 use Uelnur\SymfonyViewController\BaseViewContext;
 use Exception;
@@ -17,57 +20,59 @@ abstract class ActionView extends AbstractTwigView {
      */
     public function handle(BaseViewContext $viewContext): void {
         assert($viewContext instanceof ActionViewContext);
-        $action = $viewContext->action;
 
-        $actionParams = $action->createParams();
-        $viewContext->actionParams = $actionParams;
-        $this->onActionCreateParams($actionParams, $viewContext);
+        $action = $viewContext->action;
+        $action = new LoggableActionDecorator($action);
+        $action = new ValidatableActionDecorator($action);
+        $action = new DispatchableActionDecorator($action);
+        $viewContext->action = $action;
+
+        $viewContext->actionParams = $action->createParams();
+        $this->onActionCreateParams($viewContext->actionParams, $viewContext);
 
         if ( $viewContext->response ) {
             return;
         }
 
         try {
-            $actionData = $action->createData($actionParams);
+            $viewContext->actionData = $action->createData($viewContext->actionParams);
         }
         catch (Exception $e) {
-            $this->onActionCreateDataException($e, $actionParams, $viewContext);
+            $this->onActionCreateDataException($e, $viewContext->actionParams, $viewContext);
             return;
         }
 
-        $viewContext->actionData = $actionData;
-        $this->onActionCreateData($actionData, $viewContext);
+        $this->onActionCreateData($viewContext->actionData, $viewContext);
 
         if ( $viewContext->response ) {
             return;
         }
 
-        $actionFormOptions = $this->getActionFormOptions($actionData, $viewContext);
+        $viewContext->actionFormOptions = $this->getActionFormOptions($viewContext->actionData, $viewContext);
 
         if ( $viewContext->response ) {
             return;
         }
 
-        $actionForm = $this->createForm($viewContext->actionFormBuilderClass, $actionData, $actionFormOptions);
-        $viewContext->actionForm = $actionForm;
+        $viewContext->actionForm = $this->createForm($viewContext->actionFormBuilderClass, $viewContext->actionData, $viewContext->actionFormOptions);
 
         $viewContext->actionForm->handleRequest($viewContext->request);
-        $viewContext->actionFormView = $actionForm->createView();
+        $viewContext->actionFormView = $viewContext->actionForm->createView();
 
-        if ( $this->actionShouldAutoSubmit($actionData, $viewContext) || ($actionForm->isSubmitted() && $actionForm->isValid()) ) {
+        if ( $this->actionShouldAutoSubmit($viewContext->actionData, $viewContext) || ($viewContext->actionForm->isSubmitted() && $viewContext->actionForm->isValid()) ) {
             try {
-                $status = $action->handle($actionData);
+                $status = $action->handle($viewContext->actionData);
             }
             catch (Exception $e) {
-                $this->onActionHandleException($e, $actionData, $viewContext);
+                $this->onActionHandleException($e, $viewContext->actionData, $viewContext);
                 return;
             }
 
             if ( $status->isSuccess() ) {
-                $this->onActionHandleSuccess($status, $actionData, $viewContext);
+                $this->onActionHandleSuccess($status, $viewContext->actionData, $viewContext);
             }
             else {
-                $this->onActionHandleFail($status, $actionData, $viewContext);
+                $this->onActionHandleFail($status, $viewContext->actionData, $viewContext);
             }
         }
     }

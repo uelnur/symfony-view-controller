@@ -19,11 +19,11 @@
         }
     },
     "require": {
-        "symfony/http-kernel": "^5",
-        "symfony/dependency-injection": "^5",
+        "symfony/http-kernel": "^3|^4|^5",
+        "symfony/dependency-injection": "^3|^4|^5",
         "uelnur/symfony-criteria-repository": "^0.1",
         "uelnur/symfony-entity-action": "^0.1",
-        "symfony/framework-bundle": "^5",
-        "symfony/form": "^5"
+        "symfony/framework-bundle": "^3|^4|^5",
+        "symfony/form": "^3|^4|^5"
     }
 }

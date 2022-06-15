@@ -12,6 +12,7 @@ class ActionViewContext extends AbstractTwigViewContext {
     public array|object|null $actionParams           = null;
     public array|object|null $actionData             = null;
     public ?string           $actionFormBuilderClass = null;
+    public ?array            $actionFormOptions      = [];
     public ?FormInterface    $actionForm             = null;
     public ?FormView         $actionFormView         = null;
 }
